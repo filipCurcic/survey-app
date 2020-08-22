@@ -1,0 +1,22 @@
+.main-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "top-column top-column"
+    "middle-column middle-column"
+    "bottom-column bottom-column";
+  .top {
+    grid-area: top-column;
+    height: 12.5vh;
+  }
+
+  .middle {
+    grid-area: middle-column;
+    height: 87.5vh;
+  }
+
+  .bottom {
+    grid-area: bottom-column;
+    height: 10vh;
+  }
+}

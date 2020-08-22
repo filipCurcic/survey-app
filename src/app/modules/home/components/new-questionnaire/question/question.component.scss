@@ -1,0 +1,14 @@
+.main-container {
+  min-width: 350px;
+  min-height: 200px;
+  transition: 0.2s;
+  padding: 1em 2em;
+  .answers {
+    padding: 1em 2em;
+  }
+}
+
+.main-container:hover {
+  cursor: pointer;
+  background-color: #f4f4f4;
+}

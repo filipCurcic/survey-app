@@ -1,0 +1,29 @@
+<div class="main-container first-color">
+  <div class="split-background second-color"></div>
+  <img src="../../../../assets/images/character4.svg" id="svg-drawing" />
+  <div class="registration-container">
+    <img src="../../../../assets/images/avatar.svg" id="avatar" />
+    <h1 id="register-header">
+      <strong>
+        Sign Up
+      </strong>
+    </h1>
+    <div id="form-container">
+      <div id="left">
+        <input type="text" placeholder="First Name" />
+
+        <input type="text" placeholder="Last Name" />
+
+        <input type="text" placeholder="Email" />
+      </div>
+      <div id="right">
+        <input type="text" placeholder="Username" />
+
+        <input type="text" placeholder="Password" />
+        <input type="text" placeholder="Repeat Password" />
+      </div>
+    </div>
+    <button id="register-button">Register</button>
+    <p [routerLink]="['/login']">Already have an account?</p>
+  </div>
+</div>

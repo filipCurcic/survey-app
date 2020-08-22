@@ -1,0 +1,46 @@
+.main-container {
+  display: grid;
+  place-items: center;
+
+  .component-container {
+    border-top: 6px solid #a8e6cf;
+    width: 100%;
+    height: 90%;
+    padding: 2em 4em;
+
+    box-shadow: 0 0.5px 0.2px rgba(0, 0, 0, 0.003),
+      0 0.8px 0.5px rgba(0, 0, 0, 0.007), 0 1.2px 0.9px rgba(0, 0, 0, 0.01),
+      0 1.5px 1.4px rgba(0, 0, 0, 0.014), 0 1.8px 2px rgba(0, 0, 0, 0.017),
+      0 2.1px 2.8px rgba(0, 0, 0, 0.022), 0 2.6px 4px rgba(0, 0, 0, 0.026),
+      0 3.1px 5.8px rgba(0, 0, 0, 0.031), 0 4px 9px rgba(0, 0, 0, 0.038),
+      0 6px 16px rgba(0, 0, 0, 0.05);
+
+    .name {
+      width: 100%;
+      padding: 2em 1em;
+      p {
+        font-size: 40px;
+        font-weight: 200;
+      }
+    }
+    .name:hover {
+      cursor: pointer;
+      background-color: #f4f4f4;
+    }
+
+    button {
+      border: none;
+      color: #212121;
+      background-color: #dcedc1;
+      border-radius: 10px;
+      width: 17.5%;
+      height: 7%;
+      margin-top: 2%;
+      font-size: 20.5px;
+      transition: 0.5s;
+    }
+    button:hover {
+      background-color: darken($color: #dcedc1, $amount: 5);
+    }
+  }
+}

@@ -1,1 +1,85 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~font-awesome/css/font-awesome.css";
+
+* {
+  box-sizing: border-box;
+}
+
+.first-color {
+  background: #a8e6cf;
+}
+
+.second-color {
+  background: #dcedc1;
+}
+
+.second-color-lighter {
+  background: lighten($color: #dcedc1, $amount: 7.5);
+}
+
+.third-color {
+  background: #ffd3b6;
+}
+
+.fourth-color {
+  background: #ffaaa5;
+}
+
+.grey-one {
+  background-color: #f4f4f4;
+}
+
+.white-one {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.primary-text-color {
+  color: #212121;
+}
+
+.secondary-text-color {
+  color: #757575;
+}
+
+.divider-color {
+  color: #bdbdbd;
+}
+
+.icon-color {
+  color: #000000;
+}
+
+.primary-font {
+  font-family: "Work Sans", sans-serif;
+}
+
+.test-font {
+  font-family: "Abel", sans-serif;
+}
+
+.secondary-font {
+  font-family: "Staatliches", cursive;
+}
+
+input {
+  outline: 0;
+  border: 0;
+  border-bottom: 1px solid #212121;
+  padding: 10px;
+  padding-left: 27.5px;
+  width: 20;
+}
+input:focus {
+  outline: none;
+}
+input::-webkit-input-placeholder {
+  font-size: 20px;
+  line-height: 3;
+}
+
+.main-container-sizing {
+  min-height: 87.5vh;
+  width: 100%;
+  padding: 0 8em;
+  background-color: #f4f4f4;
+}

@@ -1,0 +1,23 @@
+<div class="main-container primary-font main-container-sizing">
+  <div class="grid-container">
+    <header>
+      <h1>My forms</h1>
+      <input type="text" placeholder="Search forms..." />
+      <!-- <div class="input-group">
+        <input placeholder="Search" />
+        <span class="input-group-append">
+          <div class="input-group-text bg-transparent">
+            <i class="fa fa-search"></i>
+          </div>
+        </span>
+      </div> -->
+    </header>
+    <main>
+      <app-create-survey></app-create-survey>
+      <app-displayed-survey
+        *ngFor="let questionnaireEl of questionnaires"
+        [questionnaire]="questionnaireEl"
+      ></app-displayed-survey>
+    </main>
+  </div>
+</div>
