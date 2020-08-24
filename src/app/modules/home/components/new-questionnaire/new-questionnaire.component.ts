@@ -4,6 +4,9 @@ import { Answer } from 'src/app/shared/models/answer';
 import { Question } from 'src/app/shared/models/question';
 import { Observable } from 'rxjs';
 import * as AnswerActions from './../../../../core/services/answer/store/answer.actions';
+import { QuestionnaireService } from 'src/app/core/services/questionnaire/questionnaire.service';
+import { Questionnaire } from 'src/app/shared/models/questionnaire';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-new-questionnaire',
@@ -11,18 +14,33 @@ import * as AnswerActions from './../../../../core/services/answer/store/answer.
   styleUrls: ['./new-questionnaire.component.scss'],
 })
 export class NewQuestionnaireComponent implements OnInit {
-  questions: Observable<{ questions: Question[] }>;
+  // questions: Observable<{ questions: Question[] }>;
 
-  constructor(private store: Store<{ question: { questions: Question[] } }>) {}
+  // constructor(private store: Store<{ question: { questions: Question[] } }>) {}
+
+  constructor(
+    private questionnaireService: QuestionnaireService,
+    private route: ActivatedRoute
+  ) {}
+
+  loadedQuestionnaire: Questionnaire;
 
   newAnswer: Answer;
 
   ngOnInit(): void {
-    this.questions = this.store.select('question');
+    // this.questions = this.store.select('question');
+    this.loadQuestionnaire();
+  }
+
+  loadQuestionnaire(): void {
+    this.questionnaireService
+      .getQuestionnaire(+this.route.snapshot.paramMap.get('id'))
+      .subscribe((data) => (this.loadedQuestionnaire = data));
   }
 
   addAnswer(): void {
-    this.newAnswer = { id: 20, name: 'test pitanje', question: null };
-    this.store.dispatch(new AnswerActions.AddAnswer(this.newAnswer));
+    // this.newAnswer = { id: 20, name: 'test pitanje', question: null };
+    // this.store.dispatch(new AnswerActions.AddAnswer(this.newAnswer));
+    console.log(this.loadedQuestionnaire);
   }
 }

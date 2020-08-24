@@ -30,7 +30,7 @@ export class QuestionnaireService {
   // tslint:disable-next-line:typedef
   addQuestionnaireFromTemplate(questionnaire: Questionnaire) {
     return this.httpClient.post<Questionnaire>(
-      this.questionnaireUrl + `add-template`,
+      this.questionnaireUrl + `add_template`,
       questionnaire
     );
   }
@@ -61,7 +61,7 @@ export class QuestionnaireService {
   // tslint:disable-next-line:typedef
   copyQuestionnaire(questionnaire: Questionnaire) {
     return this.httpClient.post<Questionnaire>(
-      this.questionnaireUrl + `copy-questionnaire`,
+      this.questionnaireUrl + `copy_questionnaire`,
       questionnaire
     );
   }

@@ -10,6 +10,11 @@ export class QuestionService {
   questionUrl = 'http://localhost:8080/question';
 
   // tslint:disable-next-line:typedef
+  getQuestions() {
+    return this.httpClient.get<Question>(this.questionUrl + `all`);
+  }
+
+  // tslint:disable-next-line:typedef
   deleteQuestion(id: number) {
     return this.httpClient.delete<number>(this.questionUrl + `${id}`);
   }

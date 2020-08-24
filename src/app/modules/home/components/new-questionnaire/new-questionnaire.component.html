@@ -1,10 +1,13 @@
 <div class="main-container main-container-sizing test-font">
   <div class="component-container white-one">
     <div class="name">
-      <p>Survey Name</p>
+      <p>{{ loadedQuestionnaire.name }}</p>
     </div>
 
-    <app-question></app-question>
+    <app-question
+      *ngFor="let questionElement of loadedQuestionnaire.question"
+      [question]="questionElement"
+    ></app-question>
     <!-- <p *ngFor="let question of (questions | async).questions; let i = index">
       {{ question.name }}
     </p> -->

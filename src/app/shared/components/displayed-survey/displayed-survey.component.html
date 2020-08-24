@@ -21,8 +21,12 @@
         style="min-width: 100px;"
         aria-labelledby="dropdownMenuButton"
       >
-        <a class="dropdown-item" href="#">Copy</a>
-        <a class="dropdown-item" href="#">Delete</a>
+        <a class="dropdown-item" (click)="copyQuestionnaire(questionnaire)"
+          >Copy</a
+        >
+        <a class="dropdown-item" (click)="deleteQuestionnaire(questionnaire.id)"
+          >Delete</a
+        >
       </div>
     </div>
   </div>

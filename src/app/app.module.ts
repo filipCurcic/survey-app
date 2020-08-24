@@ -13,6 +13,8 @@ import { SharedModule } from './shared/shared.module';
 import { StoreModule } from '@ngrx/store';
 import { answerReducer } from './core/services/answer/store/answer.reducer';
 import { questionReducer } from './core/services/question/store/question.reducer';
+import { CoreModule } from './core/core.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,9 +29,11 @@ import { questionReducer } from './core/services/question/store/question.reducer
     AppRoutingModule,
     HomeModule,
     SharedModule,
-    StoreModule.forRoot({ question: questionReducer }),
+    CoreModule,
+    HttpClientModule,
+    // StoreModule.forRoot({ question: questionReducer }),
 
-    StoreModule.forRoot({ answer: answerReducer }),
+    // StoreModule.forRoot({ answer: answerReducer }),
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,9 +1,9 @@
 <div class="main-container">
-  <h3>Question 1</h3>
+  <h3>{{ question.name }}</h3>
   <div class="answers">
-    <h5 *ngFor="let answer of (answers | async).answers; let i = index">
+    <!-- <h5 *ngFor="let answer of (answers | async).answers; let i = index">
       {{ answer.name }}
-    </h5>
-    <button (click)="addAnswer()">test</button>
+    </h5> -->
+    <!-- <button (click)="addAnswer()">test</button> -->
   </div>
 </div>

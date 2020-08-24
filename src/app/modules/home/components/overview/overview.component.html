@@ -13,10 +13,14 @@
       </div> -->
     </header>
     <main>
-      <app-create-survey></app-create-survey>
+      <app-create-survey
+        (questionnaireAdded)="updatedQuestionnaires($event)"
+      ></app-create-survey>
       <app-displayed-survey
         *ngFor="let questionnaireEl of questionnaires"
         [questionnaire]="questionnaireEl"
+        (questionnaireDeleted)="updatedQuestionnaires($event)"
+        [routerLink]="['/home/overview', questionnaireEl.id]"
       ></app-displayed-survey>
     </main>
   </div>

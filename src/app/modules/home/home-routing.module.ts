@@ -13,8 +13,9 @@ const homeRoutes: Routes = [
     children: [
       { path: 'welcome', component: LandingPageComponent },
       { path: 'overview', component: OverviewComponent },
+      { path: 'overview/:id', component: NewQuestionnaireComponent },
       { path: 'templates', component: TemplatesComponent },
-      { path: 'new', component: NewQuestionnaireComponent },
+      // { path: 'new', component: NewQuestionnaireComponent },
       { path: '**', redirectTo: '/home/welcome', pathMatch: 'full' },
     ],
   },
