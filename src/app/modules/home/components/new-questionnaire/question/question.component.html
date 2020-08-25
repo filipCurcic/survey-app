@@ -4,9 +4,9 @@
     <!-- <h5 *ngFor="let answer of (answers | async).answers; let i = index">
       {{ answer.name }}
     </h5> -->
-    <!-- <button (click)="addAnswer()">test</button> -->
     <p *ngFor="let answer of question.answer; let i = index">
       {{ i + 1 }}. {{ answer.name }}
     </p>
+    <button (click)="addAnswer()">test</button>
   </div>
 </div>

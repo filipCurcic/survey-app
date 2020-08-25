@@ -55,4 +55,8 @@ export class NewQuestionnaireComponent implements OnInit {
       },
     });
   }
+
+  answerAdded(boolValue: boolean): void {
+    this.loadQuestionnaire();
+  }
 }

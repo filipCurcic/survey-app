@@ -15,7 +15,8 @@ import { answerReducer } from './core/services/answer/store/answer.reducer';
 import { questionReducer } from './core/services/question/store/question.reducer';
 import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +32,8 @@ import { HttpClientModule } from '@angular/common/http';
     SharedModule,
     CoreModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     // StoreModule.forRoot({ question: questionReducer }),
 
     // StoreModule.forRoot({ answer: answerReducer }),

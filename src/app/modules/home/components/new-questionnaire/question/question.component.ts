@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Answer } from 'src/app/shared/models/answer';
 import { Observable } from 'rxjs';
 import * as AnswerActions from './../../../../../core/services/answer/store/answer.actions';
 import { Question } from 'src/app/shared/models/question';
+import { AnswerService } from './../../../../../core/services/answer/answer.service';
 
 @Component({
   selector: 'app-question',
@@ -16,7 +17,12 @@ export class QuestionComponent implements OnInit {
 
   @Input() question: Question;
 
+  @Output()
+  answerAdded: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   // constructor(private store: Store<{ answer: { answers: Answer[] } }>) {}
+
+  constructor(private answerService: AnswerService) {}
 
   ngOnInit(): void {
     // this.answers = this.store.select('answer');
@@ -25,5 +31,15 @@ export class QuestionComponent implements OnInit {
   addAnswer(): void {
     // const newAnswer = { id: 1, name: 'pitanje', question: null };
     // this.store.dispatch(new AnswerActions.AddAnswer(newAnswer));
+    const sampleAnswer = new Answer(null, 'test odgovor', this.question);
+    this.answerService.addAnswer(sampleAnswer).subscribe({
+      complete: () => {
+        this.onChange();
+      },
+    });
+  }
+
+  onChange(): void {
+    this.answerAdded.emit(true);
   }
 }

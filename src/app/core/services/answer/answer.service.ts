@@ -6,13 +6,17 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class AnswerService {
-  answerUrl = 'http://localhost:8080/answer';
+  answerUrl = 'http://localhost:8080/answer/';
 
   constructor(private httpClient: HttpClient) {}
 
   // tslint:disable-next-line:typedef
   deleteAnswer(id: number) {
     return this.httpClient.delete<number>(this.answerUrl + `${id}`);
+  }
+  // tslint:disable-next-line:typedef
+  addAnswer(answer: Answer) {
+    return this.httpClient.post<Answer>(this.answerUrl + `add`, answer);
   }
 
   // tslint:disable-next-line:typedef

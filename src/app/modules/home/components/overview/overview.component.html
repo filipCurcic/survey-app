@@ -1,8 +1,18 @@
 <div class="main-container primary-font main-container-sizing">
+  <app-alert
+    [message]="error"
+    *ngIf="deleting"
+    (closeAlert)="onClose()"
+  ></app-alert>
+
   <div class="grid-container">
     <header>
-      <h1>My forms</h1>
-      <input type="text" placeholder="Search forms..." />
+      <h1>MY FORMS</h1>
+      <input
+        type="text"
+        placeholder="Search forms..."
+        [(ngModel)]="searchText"
+      />
       <!-- <div class="input-group">
         <input placeholder="Search" />
         <span class="input-group-append">
@@ -20,7 +30,6 @@
         *ngFor="let questionnaireEl of questionnaires"
         [questionnaire]="questionnaireEl"
         (questionnaireDeleted)="updatedQuestionnaires($event)"
-        [routerLink]="['/home/overview', questionnaireEl.id]"
       ></app-displayed-survey>
     </main>
   </div>

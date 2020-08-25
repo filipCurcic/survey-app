@@ -13,7 +13,11 @@
         </div> -->
     </header>
     <main>
-      <app-displayed-template></app-displayed-template>
+      <app-displayed-template
+        *ngFor="let templateElement of templates"
+        [template]="templateElement"
+        (templateDeleted)="updatedTemplates($event)"
+      ></app-displayed-template>
     </main>
   </div>
 </div>

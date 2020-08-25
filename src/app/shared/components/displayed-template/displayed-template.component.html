@@ -21,17 +21,15 @@
         style="min-width: 100px;"
         aria-labelledby="dropdownMenuButton"
       >
-        <a class="dropdown-item" href="#">Copy</a>
-        <a class="dropdown-item" href="#">Delete</a>
+        <a class="dropdown-item" (click)="deleteTemplate(template.id)"
+          >Delete</a
+        >
       </div>
     </div>
   </div>
-  <div class="bottom">Ime</div>
-  <div class="template-description">
-    Kratak opis Kratak opis Kratak opis Kratak opis Kratak opis Kratak opis
-    Kratak opis Kratak opis
-  </div>
-  <div class="choose-hover">
+  <div class="bottom">{{ template.name }}</div>
+  <div class="template-description"></div>
+  <div class="choose-hover" (click)="addQuestionnaireFromTemplate(template)">
     CHOOSE
   </div>
 </div>

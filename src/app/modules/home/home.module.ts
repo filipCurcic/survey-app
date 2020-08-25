@@ -8,6 +8,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { NewQuestionnaireComponent } from './components/new-questionnaire/new-questionnaire.component';
 import { QuestionComponent } from './components/new-questionnaire/question/question.component';
 import { TemplatesComponent } from './components/templates/templates.component';
+import { FormsModule } from '@angular/forms';
+import { FilterPipe } from './../../shared/pipes/filter/filter.pipe';
+import { AlertComponent } from './../../shared/components/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,9 @@ import { TemplatesComponent } from './components/templates/templates.component';
     NewQuestionnaireComponent,
     QuestionComponent,
     TemplatesComponent,
+    FilterPipe,
+    AlertComponent,
   ],
-  imports: [CommonModule, homeRouting, SharedModule],
+  imports: [CommonModule, homeRouting, SharedModule, FormsModule],
 })
 export class HomeModule {}

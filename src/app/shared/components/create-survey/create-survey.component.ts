@@ -21,7 +21,8 @@ export class CreateSurveyComponent implements OnInit {
       'Sample Questionnaire',
       new Date(),
       null,
-      []
+      [],
+      false
     );
     this.questionnaireService.addQuestionnaire(sampleQuestionnaire).subscribe({
       complete: () => {

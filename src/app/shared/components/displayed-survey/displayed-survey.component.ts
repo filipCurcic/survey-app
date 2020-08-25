@@ -32,6 +32,15 @@ export class DisplayedSurveyComponent implements OnInit {
     });
   }
 
+  saveAsTemplate(questionnaire: Questionnaire): void {
+    console.log(questionnaire);
+    this.questionnaireService.saveAsTemplate(questionnaire).subscribe({
+      complete: () => {
+        this.buttonClicked();
+      },
+    });
+  }
+
   buttonClicked(): void {
     this.questionnaireDeleted.emit(true);
   }

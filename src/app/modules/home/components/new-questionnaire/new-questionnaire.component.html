@@ -1,5 +1,11 @@
 <div class="main-container main-container-sizing test-font">
   <div class="component-container white-one">
+    <p
+      style="text-decoration: underline; cursor: pointer;"
+      routerLink="/home/overview"
+    >
+      &#8249; Back
+    </p>
     <div class="name">
       <p>{{ loadedQuestionnaire.name }}</p>
     </div>
@@ -7,6 +13,7 @@
     <app-question
       *ngFor="let questionElement of loadedQuestionnaire.question"
       [question]="questionElement"
+      (answerAdded)="answerAdded($event)"
     ></app-question>
     <!-- <app-edit-survey></app-edit-survey> -->
     <!-- <p *ngFor="let question of (questions | async).questions; let i = index">
