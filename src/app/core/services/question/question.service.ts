@@ -7,7 +7,7 @@ import { Question } from 'src/app/shared/models/question';
 export class QuestionService {
   constructor(private httpClient: HttpClient) {}
 
-  questionUrl = 'http://localhost:8080/question';
+  questionUrl = 'http://localhost:8080/question/';
 
   // tslint:disable-next-line:typedef
   getQuestions() {
@@ -29,6 +29,11 @@ export class QuestionService {
     return this.httpClient.get<Question[]>(
       this.questionUrl + `q/` + `${questionnaireId}`
     );
+  }
+
+  // tslint:disable-next-line:typedef
+  addQuestion(question: Question) {
+    return this.httpClient.post<Question>(this.questionUrl + `add`, question);
   }
 
   // tslint:disable-next-line:typedef

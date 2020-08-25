@@ -4,6 +4,7 @@ import { CreateSurveyComponent } from './components/create-survey/create-survey.
 import { DisplayedSurveyComponent } from './components/displayed-survey/displayed-survey.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { DisplayedTemplateComponent } from './components/displayed-template/displayed-template.component';
+import { EditingSurveyComponent } from './components/editing-survey/editing-survey.component';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,7 @@ import { DisplayedTemplateComponent } from './components/displayed-template/disp
     DisplayedSurveyComponent,
     AlertComponent,
     DisplayedTemplateComponent,
+    EditingSurveyComponent,
   ],
   exports: [
     CreateSurveyComponent,

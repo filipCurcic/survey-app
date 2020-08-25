@@ -7,6 +7,7 @@ import * as AnswerActions from './../../../../core/services/answer/store/answer.
 import { QuestionnaireService } from 'src/app/core/services/questionnaire/questionnaire.service';
 import { Questionnaire } from 'src/app/shared/models/questionnaire';
 import { ActivatedRoute } from '@angular/router';
+import { QuestionService } from 'src/app/core/services/question/question.service';
 
 @Component({
   selector: 'app-new-questionnaire',
@@ -20,6 +21,7 @@ export class NewQuestionnaireComponent implements OnInit {
 
   constructor(
     private questionnaireService: QuestionnaireService,
+    private questionService: QuestionService,
     private route: ActivatedRoute
   ) {}
 
@@ -39,8 +41,18 @@ export class NewQuestionnaireComponent implements OnInit {
   }
 
   addAnswer(): void {
+    const q: Question = {
+      id: null,
+      name: 'test',
+      questionnaire: this.loadedQuestionnaire,
+      answer: [],
+    };
     // this.newAnswer = { id: 20, name: 'test pitanje', question: null };
     // this.store.dispatch(new AnswerActions.AddAnswer(this.newAnswer));
-    console.log(this.loadedQuestionnaire);
+    this.questionService.addQuestion(q).subscribe({
+      complete: () => {
+        this.loadQuestionnaire();
+      },
+    });
   }
 }

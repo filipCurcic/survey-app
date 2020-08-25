@@ -5,5 +5,5 @@ export interface Question {
   id: number;
   name: string;
   questionnaire: Questionnaire;
-  answers: Answer[];
+  answer: Answer[];
 }
