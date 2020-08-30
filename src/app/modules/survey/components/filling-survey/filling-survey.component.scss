@@ -1,0 +1,53 @@
+.main-container {
+  display: grid;
+  place-items: center;
+  .component-container {
+    border-top: 6px solid #a8e6cf;
+    width: 100%;
+    min-height: 90%;
+    padding: 2em 4em;
+    margin-top: 2em;
+    display: flex;
+    flex-direction: column;
+    p {
+      margin: 1em 0;
+      font-size: 25px;
+    }
+    input {
+      margin-left: 3em;
+      margin-bottom: 1em;
+      width: 90%;
+    }
+    button {
+      border: none;
+      color: #212121;
+      background-color: #dcedc1;
+      border-radius: 10px;
+      width: 17.5%;
+      height: 50px;
+      margin-top: 2%;
+      font-size: 20.5px;
+      transition: 0.5s;
+    }
+    button:hover {
+      background-color: darken($color: #dcedc1, $amount: 5);
+    }
+    .answers-container {
+      display: flex;
+      flex-direction: column;
+      .answer-container {
+        display: flex;
+        // width: 20%;
+        align-items: center;
+        align-content: center;
+        padding: 0 3em;
+        input {
+          width: 20px;
+          margin: 0;
+          margin-right: 2em;
+          margin-bottom: 0.5em;
+        }
+      }
+    }
+  }
+}

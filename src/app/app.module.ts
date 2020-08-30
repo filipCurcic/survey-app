@@ -17,6 +17,7 @@ import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { SurveyModule } from './modules/survey/survey.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +30,7 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserModule,
     AppRoutingModule,
     HomeModule,
+    SurveyModule,
     SharedModule,
     CoreModule,
     HttpClientModule,

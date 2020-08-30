@@ -5,6 +5,10 @@ import { RegisterComponent } from './core/auth/register/register.component';
 
 const routes: Routes = [
   { path: 'home', loadChildren: './modules/home/home.module#HomeModule' },
+  {
+    path: 'surveys',
+    loadChildren: './modules/survey/survey.module#SurveyModule',
+  },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 ];

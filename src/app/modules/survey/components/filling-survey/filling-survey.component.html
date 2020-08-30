@@ -1,0 +1,27 @@
+<div class="main-container main-container-sizing test-font">
+  <div class="component-container white-one">
+    <!-- <input type="text" *ngFor="let question of loadedQuestionnaire.question" /> -->
+    <h1>
+      {{ loadedQuestionnaire.name }}
+    </h1>
+    <div
+      class="question"
+      *ngFor="let q of loadedQuestionnaire.question; let i = index"
+    >
+      <p>{{ i + 1 }}. {{ q.name }}</p>
+      <input type="text" *ngIf="q.answer.length === 0" />
+      <div class="answers-container" *ngIf="q.answer">
+        <div class="answer-container" *ngFor="let a of q.answer">
+          <input
+            type="checkbox"
+            value="{{ a.name }}"
+            id="answer1"
+            name="answer1"
+          />
+          <label for="answer1">{{ a.name }}</label>
+        </div>
+      </div>
+    </div>
+    <button class="">Submit</button>
+  </div>
+</div>

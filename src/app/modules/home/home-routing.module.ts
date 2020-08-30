@@ -15,7 +15,6 @@ const homeRoutes: Routes = [
       { path: 'overview', component: OverviewComponent },
       { path: 'overview/:id', component: NewQuestionnaireComponent },
       { path: 'templates', component: TemplatesComponent },
-      // { path: 'new', component: NewQuestionnaireComponent },
       { path: '**', redirectTo: '/home/welcome', pathMatch: 'full' },
     ],
   },

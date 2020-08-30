@@ -18,18 +18,24 @@
       </svg>
       <div
         class="dropdown-menu"
-        style="min-width: 100px;"
+        style="min-width: 100px"
         aria-labelledby="dropdownMenuButton"
       >
+        <a
+          class="dropdown-item"
+          (click)="deleteQuestionnaire(questionnaire.id)"
+          [routerLink]="['/surveys', questionnaire.id]"
+          >Fill</a
+        >
         <a class="dropdown-item" (click)="copyQuestionnaire(questionnaire)"
           >Copy</a
         >
-        <a class="dropdown-item" (click)="deleteQuestionnaire(questionnaire.id)"
-          >Delete</a
-        >
-
         <a class="dropdown-item" (click)="saveAsTemplate(questionnaire)"
           >Save as Template</a
+        >
+
+        <a class="dropdown-item" (click)="deleteQuestionnaire(questionnaire.id)"
+          >Delete</a
         >
       </div>
     </div>
