@@ -29,6 +29,8 @@ export class NewQuestionnaireComponent implements OnInit {
 
   newAnswer: Answer;
 
+  allAnswers = [];
+
   ngOnInit(): void {
     // this.questions = this.store.select('question');
     this.loadQuestionnaire();
@@ -37,7 +39,9 @@ export class NewQuestionnaireComponent implements OnInit {
   loadQuestionnaire(): void {
     this.questionnaireService
       .getQuestionnaire(+this.route.snapshot.paramMap.get('id'))
-      .subscribe((data) => (this.loadedQuestionnaire = data));
+      .subscribe(
+        (data) => ((this.loadedQuestionnaire = data), this.getAllAnswers())
+      );
   }
 
   addAnswer(): void {
@@ -58,5 +62,14 @@ export class NewQuestionnaireComponent implements OnInit {
 
   answerAdded(boolValue: boolean): void {
     this.loadQuestionnaire();
+  }
+
+  getAllAnswers() {
+    for (let q of this.loadedQuestionnaire.question) {
+      for (let a of q.answer) {
+        this.allAnswers.push(a);
+      }
+    }
+    console.log(this.allAnswers);
   }
 }

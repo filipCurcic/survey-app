@@ -17,6 +17,8 @@ export class QuestionComponent implements OnInit {
 
   @Input() question: Question;
 
+  @Input() answers: Answer[];
+
   @Output()
   answerAdded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -41,5 +43,9 @@ export class QuestionComponent implements OnInit {
 
   onChange(): void {
     this.answerAdded.emit(true);
+  }
+
+  test(): void {
+    console.log(this.answers);
   }
 }

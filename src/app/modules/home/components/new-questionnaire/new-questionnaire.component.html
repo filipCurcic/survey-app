@@ -1,7 +1,7 @@
 <div class="main-container main-container-sizing test-font">
   <div class="component-container white-one">
     <p
-      style="text-decoration: underline; cursor: pointer;"
+      style="text-decoration: underline; cursor: pointer"
       routerLink="/home/overview"
     >
       &#8249; Back
@@ -13,6 +13,7 @@
     <app-question
       *ngFor="let questionElement of loadedQuestionnaire.question"
       [question]="questionElement"
+      [answers]="allAnswers"
       (answerAdded)="answerAdded($event)"
     ></app-question>
     <!-- <app-edit-survey></app-edit-survey> -->
@@ -21,5 +22,6 @@
     </p> -->
 
     <button (click)="addAnswer()">Add new</button>
+    <button (click)="getAllAnswers()">Test</button>
   </div>
 </div>
