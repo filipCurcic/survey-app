@@ -8,6 +8,7 @@ import { QuestionnaireService } from 'src/app/core/services/questionnaire/questi
 import { Questionnaire } from 'src/app/shared/models/questionnaire';
 import { ActivatedRoute } from '@angular/router';
 import { QuestionService } from 'src/app/core/services/question/question.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-new-questionnaire',
@@ -22,12 +23,15 @@ export class NewQuestionnaireComponent implements OnInit {
   constructor(
     private questionnaireService: QuestionnaireService,
     private questionService: QuestionService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr: ToastrService
   ) {}
 
   loadedQuestionnaire: Questionnaire;
 
   newAnswer: Answer;
+
+  questionnaireNameEdit: boolean;
 
   allAnswers = [];
 
@@ -40,7 +44,12 @@ export class NewQuestionnaireComponent implements OnInit {
     this.questionnaireService
       .getQuestionnaire(+this.route.snapshot.paramMap.get('id'))
       .subscribe(
-        (data) => ((this.loadedQuestionnaire = data), this.getAllAnswers())
+        (data) => (
+          (this.loadedQuestionnaire = data),
+          this.getAllAnswers(),
+          this.alterQuestions(this.loadedQuestionnaire),
+          console.log(this.loadedQuestionnaire.question)
+        )
       );
   }
 
@@ -50,6 +59,7 @@ export class NewQuestionnaireComponent implements OnInit {
       name: 'test',
       questionnaire: this.loadedQuestionnaire,
       answer: [],
+      requiredAnswerId: null,
     };
     // this.newAnswer = { id: 20, name: 'test pitanje', question: null };
     // this.store.dispatch(new AnswerActions.AddAnswer(this.newAnswer));
@@ -60,8 +70,9 @@ export class NewQuestionnaireComponent implements OnInit {
     });
   }
 
-  answerAdded(boolValue: boolean): void {
+  answerAdded(question: Question): void {
     this.loadQuestionnaire();
+    this.onChangeEditing(question);
   }
 
   getAllAnswers() {
@@ -71,5 +82,47 @@ export class NewQuestionnaireComponent implements OnInit {
       }
     }
     console.log(this.allAnswers);
+  }
+
+  alterQuestions(sampleQuestionnaire: Questionnaire) {
+    for (let q of sampleQuestionnaire.question) {
+      q['editing'] = false;
+    }
+  }
+
+  onChangeEditing(question: Question) {
+    if (question['editing']) {
+      question['editing'] = false;
+    } else {
+      question['editing'] = true;
+    }
+  }
+
+  onEdit() {
+    if (this.questionnaireNameEdit) {
+      this.questionnaireNameEdit = false;
+    } else {
+      this.questionnaireNameEdit = true;
+    }
+  }
+
+  onSave(name: string) {
+    let updatedQuestionnaire = new Questionnaire(
+      this.loadedQuestionnaire.id,
+      name,
+      this.loadedQuestionnaire.created,
+      this.loadedQuestionnaire.user,
+      [],
+      false
+    );
+    this.questionnaireService
+      .updateQuestionnaire(updatedQuestionnaire, this.loadedQuestionnaire.id)
+      .subscribe({
+        complete: () => (
+          this.loadQuestionnaire(),
+          (this.questionnaireNameEdit = false),
+          this.toastr.success('Action completed!', 'Success')
+        ),
+      });
   }
 }

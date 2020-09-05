@@ -6,22 +6,42 @@
     >
       &#8249; Back
     </p>
-    <div class="name">
+    <div class="name" (click)="onEdit()" *ngIf="!questionnaireNameEdit">
       <p>{{ loadedQuestionnaire.name }}</p>
     </div>
 
-    <app-question
-      *ngFor="let questionElement of loadedQuestionnaire.question"
-      [question]="questionElement"
-      [answers]="allAnswers"
-      (answerAdded)="answerAdded($event)"
-    ></app-question>
-    <!-- <app-edit-survey></app-edit-survey> -->
-    <!-- <p *ngFor="let question of (questions | async).questions; let i = index">
-      {{ question.name }}
-    </p> -->
+    <div class="edit-questionnaire-name" *ngIf="questionnaireNameEdit">
+      <input
+        type="text"
+        value="{{ loadedQuestionnaire.name }}"
+        #newQuestionnaireName
+      />
+      <button
+        class="btn btn-primary"
+        (click)="onSave(newQuestionnaireName.value)"
+      >
+        Save
+      </button>
+      <button class="btn btn-danger" (click)="onEdit()">Cancel</button>
+    </div>
 
-    <button (click)="addAnswer()">Add new</button>
-    <button (click)="getAllAnswers()">Test</button>
+    <ng-container *ngFor="let questionElement of loadedQuestionnaire.question">
+      <app-question
+        [question]="questionElement"
+        [answers]="allAnswers"
+        *ngIf="!questionElement.editing"
+        (click)="onChangeEditing(questionElement)"
+      ></app-question>
+
+      <app-editing-survey
+        [question]="questionElement"
+        *ngIf="questionElement.editing"
+        (closedEditing)="onChangeEditing(questionElement)"
+        (answerAdded)="answerAdded(questionElement)"
+      ></app-editing-survey>
+    </ng-container>
+
+    <button (click)="addAnswer()" class="primary">Add new</button>
+    <button (click)="getAllAnswers()" class="primary">Test</button>
   </div>
 </div>

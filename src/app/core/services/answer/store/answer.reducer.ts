@@ -2,8 +2,8 @@ import * as AnswerActions from './answer.actions';
 import { Answer } from '../../../../shared/models/answer';
 const initialState = {
   answers: [
-    new Answer(1, 'prvo pitanje', null),
-    new Answer(2, 'drugo pitanje', null),
+    new Answer(1, 'prvo pitanje', null, null),
+    new Answer(2, 'drugo pitanje', null, null),
     // { id: 1, name: 'pitanje', question: null },
     // { id: 2, name: 'pitanje2', question: null },
   ],

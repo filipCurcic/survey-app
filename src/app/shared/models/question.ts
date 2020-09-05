@@ -6,4 +6,5 @@ export interface Question {
   name: string;
   questionnaire: Questionnaire;
   answer: Answer[];
+  requiredAnswerId: number;
 }

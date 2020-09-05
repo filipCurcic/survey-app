@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import * as AnswerActions from './../../../../../core/services/answer/store/answer.actions';
 import { Question } from 'src/app/shared/models/question';
 import { AnswerService } from './../../../../../core/services/answer/answer.service';
+import { QuestionService } from 'src/app/core/services/question/question.service';
 
 @Component({
   selector: 'app-question',
@@ -22,9 +23,29 @@ export class QuestionComponent implements OnInit {
   @Output()
   answerAdded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  selectedAnswer: number;
+
+  updatedQuestion: Question = {
+    id: null,
+    name: null,
+    answer: null,
+    questionnaire: null,
+    requiredAnswerId: null,
+    // requiredAnswer: new Answer(0, '', {
+    //   id: 0,
+    //   name: '',
+    //   questionnaire: null,
+    //   answer: [],
+    //   requiredAnswer: null,
+    // }),
+  };
+
   // constructor(private store: Store<{ answer: { answers: Answer[] } }>) {}
 
-  constructor(private answerService: AnswerService) {}
+  constructor(
+    private answerService: AnswerService,
+    private questionService: QuestionService
+  ) {}
 
   ngOnInit(): void {
     // this.answers = this.store.select('answer');
@@ -33,7 +54,7 @@ export class QuestionComponent implements OnInit {
   addAnswer(): void {
     // const newAnswer = { id: 1, name: 'pitanje', question: null };
     // this.store.dispatch(new AnswerActions.AddAnswer(newAnswer));
-    const sampleAnswer = new Answer(null, 'test odgovor', this.question);
+    const sampleAnswer = new Answer(null, 'test odgovor', this.question, null);
     this.answerService.addAnswer(sampleAnswer).subscribe({
       complete: () => {
         this.onChange();
@@ -47,5 +68,19 @@ export class QuestionComponent implements OnInit {
 
   test(): void {
     console.log(this.answers);
+  }
+
+  selectAnswer(answer: number) {
+    console.log(answer);
+  }
+
+  addRequiredAnswer() {
+    console.log(this.question);
+    this.question.requiredAnswerId = this.selectedAnswer;
+    this.questionService
+      .updateQuestion(this.question.id, this.question)
+      .subscribe({
+        complete: () => this.onChange(),
+      });
   }
 }

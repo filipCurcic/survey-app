@@ -29,7 +29,7 @@
       background-color: #f4f4f4;
     }
 
-    button {
+    button.primary {
       border: none;
       color: #212121;
       background-color: #dcedc1;
@@ -40,8 +40,16 @@
       font-size: 20.5px;
       transition: 0.5s;
     }
-    button:hover {
+    button.primary:hover {
       background-color: darken($color: #dcedc1, $amount: 5);
+    }
+    .edit-questionnaire-name {
+      input {
+        width: 100%;
+        padding: 12px;
+        height: 50px;
+        margin: 3em 0;
+      }
     }
   }
 }

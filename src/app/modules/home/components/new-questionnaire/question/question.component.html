@@ -7,16 +7,5 @@
     <p *ngFor="let answer of question.answer; let i = index">
       {{ i + 1 }}. {{ answer.name }}
     </p>
-    <form action="/action_page.php">
-      <label for="cars">Choose a car:</label>
-      <select id="cars" name="cars">
-        <option *ngFor="let answer of answers" value="{{ answer.name }}">
-          {{ answer.name }}
-        </option>
-      </select>
-      <input type="submit" />
-    </form>
-    <button (click)="addAnswer()">test</button>
-    <button (click)="test()">test</button>
   </div>
 </div>

@@ -10,6 +10,7 @@ export class Answer {
   constructor(
     public id: number,
     public name: string,
-    public question: Question
+    public question: Question,
+    public linkedQuestionIds: string
   ) {}
 }

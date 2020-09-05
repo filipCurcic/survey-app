@@ -21,10 +21,7 @@
         style="min-width: 100px"
         aria-labelledby="dropdownMenuButton"
       >
-        <a
-          class="dropdown-item"
-          (click)="deleteQuestionnaire(questionnaire.id)"
-          [routerLink]="['/surveys', questionnaire.id]"
+        <a class="dropdown-item" [routerLink]="['/surveys', questionnaire.id]"
           >Fill</a
         >
         <a class="dropdown-item" (click)="copyQuestionnaire(questionnaire)"
