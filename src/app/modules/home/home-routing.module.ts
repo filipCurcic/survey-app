@@ -5,6 +5,7 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { OverviewComponent } from './components/overview/overview.component';
 import { NewQuestionnaireComponent } from './components/new-questionnaire/new-questionnaire.component';
 import { TemplatesComponent } from './components/templates/templates.component';
+import { RoleGuard } from 'src/app/core/auth/authorization/role-guard';
 
 const homeRoutes: Routes = [
   {
@@ -12,9 +13,24 @@ const homeRoutes: Routes = [
     component: HomepageComponent,
     children: [
       { path: 'welcome', component: LandingPageComponent },
-      { path: 'overview', component: OverviewComponent },
-      { path: 'overview/:id', component: NewQuestionnaireComponent },
-      { path: 'templates', component: TemplatesComponent },
+      {
+        path: 'overview',
+        component: OverviewComponent,
+        canActivate: [RoleGuard],
+        data: { expectedRoles: ['USER'] },
+      },
+      {
+        path: 'overview/:id',
+        component: NewQuestionnaireComponent,
+        canActivate: [RoleGuard],
+        data: { expectedRoles: ['USER'] },
+      },
+      {
+        path: 'templates',
+        component: TemplatesComponent,
+        canActivate: [RoleGuard],
+        data: { expectedRoles: ['USER'] },
+      },
       { path: '**', redirectTo: '/home/welcome', pathMatch: 'full' },
     ],
   },

@@ -33,6 +33,8 @@ export class NewQuestionnaireComponent implements OnInit {
 
   questionnaireNameEdit: boolean;
 
+  currentUser = {};
+
   allAnswers = [];
 
   ngOnInit(): void {
@@ -53,7 +55,7 @@ export class NewQuestionnaireComponent implements OnInit {
       );
   }
 
-  addAnswer(): void {
+  addQuestion(): void {
     const q: Question = {
       id: null,
       name: 'test',

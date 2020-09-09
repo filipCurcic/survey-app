@@ -10,6 +10,10 @@ export class AnswerService {
 
   constructor(private httpClient: HttpClient) {}
 
+  getAnswers() {
+    return this.httpClient.get<Answer[]>(this.answerUrl + `all`);
+  }
+
   // tslint:disable-next-line:typedef
   deleteAnswer(id: number) {
     return this.httpClient.delete<number>(this.answerUrl + `${id}`);

@@ -3,7 +3,7 @@ import { Question } from '../../models/question';
 import { AnswerService } from 'src/app/core/services/answer/answer.service';
 import { QuestionService } from 'src/app/core/services/question/question.service';
 import { Answer } from '../../models/answer';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-editing-survey',
   templateUrl: './editing-survey.component.html',
@@ -13,6 +13,7 @@ export class EditingSurveyComponent implements OnInit {
   @Input() question: Question;
   @Input() answers: Answer[];
   newAnswer: string;
+  allAnswers: Answer[];
 
   @Output()
   answerAdded: EventEmitter<Question> = new EventEmitter<Question>();
@@ -22,11 +23,14 @@ export class EditingSurveyComponent implements OnInit {
 
   constructor(
     private answerService: AnswerService,
-    private questionService: QuestionService
+    private questionService: QuestionService,
+    private toastr: ToastrService
   ) {}
   selectedAnswer: number;
   ngOnInit(): void {
     this.alterAnswers(this.question);
+    this.getAllAnswers();
+    console.log(this.allAnswers);
   }
 
   addAnswer(answerName: string): void {
@@ -51,11 +55,26 @@ export class EditingSurveyComponent implements OnInit {
   }
 
   test(): void {
-    console.log(this.answers);
+    console.log(this.allAnswers);
   }
 
   selectAnswer(answer: number) {
     console.log(answer);
+  }
+
+  getAllAnswers() {
+    let answerIds = [];
+    if (this.question.answer.length > 0) {
+      for (let a of this.question.answer) {
+        answerIds.push(a.id);
+      }
+    }
+    this.answerService
+      .getAnswers()
+      .subscribe(
+        (data) =>
+          (this.allAnswers = data.filter((q) => !answerIds.includes(q.id)))
+      );
   }
 
   addRequiredAnswer() {
@@ -64,7 +83,9 @@ export class EditingSurveyComponent implements OnInit {
     this.questionService
       .updateQuestion(this.question.id, this.question)
       .subscribe({
-        complete: () => this.onChange(),
+        complete: () => (
+          this.onChange(), this.toastr.success('Action completed!', 'Success')
+        ),
       });
   }
 

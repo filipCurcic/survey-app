@@ -9,38 +9,21 @@
     <div class="answer-container">
       <ng-container *ngFor="let answer of question.answer; let i = index">
         <ng-container>
-          <p
+          <div
+            class="single-answer"
             *ngIf="!answer.editing"
             (click)="onEditAnswer(answer)"
             style="cursor: pointer"
           >
             {{ answer.name }}
-          </p>
+            <span class="edit-animation"> - Edit</span>
+          </div>
           <input
             value="{{ answer.name }}"
             *ngIf="answer.editing"
             [(ngModel)]="answer.name"
           />
         </ng-container>
-        <button
-          class="btn btn-danger"
-          (click)="deleteAnswer(answer)"
-          *ngIf="answer.editing"
-        >
-          <svg
-            width="1em"
-            height="1em"
-            viewBox="0 0 16 16"
-            class="bi bi-trash-fill"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"
-            />
-          </svg>
-        </button>
         <button
           class="btn btn-primary"
           (click)="updateAnswer(answer.name, answer)"
@@ -63,6 +46,26 @@
             />
           </svg>
         </button>
+
+        <button
+          class="btn btn-danger"
+          (click)="deleteAnswer(answer)"
+          *ngIf="answer.editing"
+        >
+          <svg
+            width="1em"
+            height="1em"
+            viewBox="0 0 16 16"
+            class="bi bi-trash-fill"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"
+            />
+          </svg>
+        </button>
       </ng-container>
     </div>
 
@@ -73,25 +76,27 @@
       <input type="text" placeholder="answer name" #answerName />
     </div>
 
-    <div class="required-answer-container">
-      <form action="/action_page.php">
-        <label for="answers">Choose a required answer:</label>
-        <select
-          id="answers"
-          name="answers"
-          [(ngModel)]="selectedAnswer"
-          (change)="selectAnswer($event.target.value)"
+    <div
+      class="required-answer-container"
+      *ngIf="question.requiredAnswerId === null"
+    >
+      <label for="answers">Choose a required answer:</label>
+      <select
+        id="answers"
+        name="answers"
+        [(ngModel)]="selectedAnswer"
+        (change)="selectAnswer($event.target.value)"
+        value="Select Required Answer"
+      >
+        <option
+          *ngFor="let answer of allAnswers"
+          value="{{ answer }}"
+          [value]="answer.id"
         >
-          <option
-            *ngFor="let answer of answers"
-            value="{{ answer }}"
-            [value]="answer.id"
-          >
-            {{ answer.name }}
-          </option>
-        </select>
-        <input type="submit" (click)="addRequiredAnswer()" />
-      </form>
+          {{ answer.name }}
+        </option>
+      </select>
+      <button (click)="addRequiredAnswer()">Submit</button>
       <br />
     </div>
     <button (click)="saveChanges()">Save</button>

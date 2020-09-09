@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import decode from 'jwt-decode';
+import * as jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -19,15 +19,15 @@ export class AuthenticationService {
     this.http
       .post<{ accessToken: string }>('http://localhost:8080/login/', {
         email: em,
-        lozinka: pin,
+        password: pin,
       })
       .subscribe((response) => {
         if (response.accessToken) {
           localStorage.setItem('accessToken', response.accessToken);
+          console.log(response.accessToken);
           this.roleChanged.next(this.getCurrentRoles());
           this.tokenChanged.next(this.getTokenExpired());
-          console.log(this.getTokenExpired);
-          this.router.navigate(['/display']);
+          this.router.navigate(['/home']);
           this.loggedInStatusChanged.next(true);
         }
       });
@@ -36,15 +36,15 @@ export class AuthenticationService {
   logout() {
     this.roleChanged.next([]);
     localStorage.removeItem('accessToken');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);
     this.loggedInStatusChanged.next(false);
   }
   // tslint:disable-next-line:typedef
-  getCurrentRoles(): any {
+  getCurrentRoles() {
     const accessToken = localStorage.getItem('accessToken');
     const roles = [];
     if (accessToken) {
-      decode(accessToken).role.forEach((role) => {
+      jwt_decode(accessToken).role.forEach((role) => {
         roles.push(role.authority);
       });
     }
@@ -54,7 +54,10 @@ export class AuthenticationService {
   getCurrentUser() {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
-      return decode(accessToken).uniq;
+      return {
+        email: jwt_decode(accessToken).uniq,
+        id: jwt_decode(accessToken).sub,
+      };
     }
     return null;
   }
@@ -62,7 +65,7 @@ export class AuthenticationService {
   getTokenExpired() {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
-      return decode(accessToken).exp;
+      return jwt_decode(accessToken).exp;
     }
 
     return null;
@@ -70,7 +73,6 @@ export class AuthenticationService {
   // tslint:disable-next-line:typedef
   isLoggedIn() {
     if (localStorage.getItem('accessToken')) {
-      console.log('servis radi');
       return true;
     }
     return false;

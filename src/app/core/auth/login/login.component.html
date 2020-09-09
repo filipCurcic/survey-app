@@ -40,7 +40,7 @@
         d="M4.5 4a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"
       />
     </svg>
-    <button id="login-button">Login</button>
+    <button (click)="onLogin()" id="login-button">Login</button>
     <p [routerLink]="['/register']">Don't have an account?</p>
   </div>
 </div>

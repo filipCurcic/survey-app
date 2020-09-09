@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { QuestionnaireService } from './../../../core/services/questionnaire/questionnaire.service';
 import { Questionnaire } from '../../models/questionnaire';
+import { AuthenticationService } from 'src/app/core/auth/authorization/auth.service';
 
 @Component({
   selector: 'app-create-survey',
@@ -11,7 +12,10 @@ export class CreateSurveyComponent implements OnInit {
   @Output()
   questionnaireAdded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(private questionnaireService: QuestionnaireService) {}
+  constructor(
+    private questionnaireService: QuestionnaireService,
+    private authService: AuthenticationService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -20,7 +24,13 @@ export class CreateSurveyComponent implements OnInit {
       null,
       'Sample Questionnaire',
       new Date(),
-      null,
+      {
+        id: this.authService.getCurrentUser().id,
+        email: this.authService.getCurrentUser().email,
+        firstName: '',
+        lastName: '',
+        userName: '',
+      },
       [],
       false
     );
