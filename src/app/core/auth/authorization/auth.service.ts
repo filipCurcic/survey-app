@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
+import { User } from 'src/app/shared/models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +33,21 @@ export class AuthenticationService {
         }
       });
   }
+
+  register(user: User) {
+    this.http
+      .post<User>('http://localhost:8080/login/register', user)
+      .subscribe({
+        complete: () => (this.router.navigate(['/login']), console.log(user)),
+      });
+  }
+
+  test() {
+    const accessToken = localStorage.getItem('accessToken');
+    const parsedToken = JSON.parse(atob(accessToken.split('.')[1]));
+    console.log(parsedToken.sub);
+  }
+
   // tslint:disable-next-line:typedef
   logout() {
     this.roleChanged.next([]);
@@ -42,33 +58,42 @@ export class AuthenticationService {
   // tslint:disable-next-line:typedef
   getCurrentRoles() {
     const accessToken = localStorage.getItem('accessToken');
-    const roles = [];
     if (accessToken) {
-      jwt_decode(accessToken).role.forEach((role) => {
-        roles.push(role.authority);
-      });
+      const parsedToken = JSON.parse(atob(accessToken.split('.')[1]));
+      const roles = [];
+      if (accessToken) {
+        parsedToken.role.forEach((role) => {
+          roles.push(role.authority);
+        });
+      }
+      return roles;
     }
-    return roles;
   }
   // tslint:disable-next-line:typedef
   getCurrentUser() {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
-      return {
-        email: jwt_decode(accessToken).uniq,
-        id: jwt_decode(accessToken).sub,
-      };
+      const parsedToken = JSON.parse(atob(accessToken.split('.')[1]));
+      if (accessToken) {
+        return {
+          email: parsedToken.uniq,
+          id: parsedToken.sub,
+        };
+      }
+      return null;
     }
-    return null;
   }
   // tslint:disable-next-line:typedef
   getTokenExpired() {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
-      return jwt_decode(accessToken).exp;
-    }
+      const parsedToken = JSON.parse(atob(accessToken.split('.')[1]));
+      if (accessToken) {
+        return parsedToken.exp;
+      }
 
-    return null;
+      return null;
+    }
   }
   // tslint:disable-next-line:typedef
   isLoggedIn() {

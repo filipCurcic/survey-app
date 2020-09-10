@@ -30,6 +30,8 @@ export class CreateSurveyComponent implements OnInit {
         firstName: '',
         lastName: '',
         userName: '',
+        password: '',
+        permission: null,
       },
       [],
       false

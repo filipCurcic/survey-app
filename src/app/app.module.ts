@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { SurveyModule } from './modules/survey/survey.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,8 @@ import { SurveyModule } from './modules/survey/survey.module';
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
     // StoreModule.forRoot({ question: questionReducer }),
 
     // StoreModule.forRoot({ answer: answerReducer }),

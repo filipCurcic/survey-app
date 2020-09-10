@@ -26,6 +26,6 @@ export class LandingPageComponent implements OnInit {
   }
 
   test() {
-    console.log(this.authService.getCurrentRoles());
+    this.authService.test();
   }
 }
