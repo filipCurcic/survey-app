@@ -33,7 +33,17 @@ export class DisplayedSurveyComponent implements OnInit {
   }
 
   saveAsTemplate(questionnaire: Questionnaire): void {
+    questionnaire.user = {
+      id: 0,
+      firstName: '',
+      lastName: '',
+      userName: '',
+      password: '',
+      email: '',
+      permission: null,
+    };
     console.log(questionnaire);
+
     this.questionnaireService.saveAsTemplate(questionnaire).subscribe({
       complete: () => {
         this.buttonClicked();

@@ -9,6 +9,7 @@ import { Questionnaire } from 'src/app/shared/models/questionnaire';
 import { ActivatedRoute } from '@angular/router';
 import { QuestionService } from 'src/app/core/services/question/question.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from 'src/app/core/auth/authorization/auth.service';
 
 @Component({
   selector: 'app-new-questionnaire',
@@ -24,7 +25,8 @@ export class NewQuestionnaireComponent implements OnInit {
     private questionnaireService: QuestionnaireService,
     private questionService: QuestionService,
     private route: ActivatedRoute,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private authService: AuthenticationService
   ) {}
 
   loadedQuestionnaire: Questionnaire;
@@ -48,6 +50,18 @@ export class NewQuestionnaireComponent implements OnInit {
       .subscribe(
         (data) => (
           (this.loadedQuestionnaire = data),
+          (this.loadedQuestionnaire.user = {
+            id: this.authService.getCurrentUser().id,
+            firstName: '',
+            lastName: '',
+            userName: '',
+            password: '',
+            email: this.authService.getCurrentUser().email,
+            permission: {
+              id: 1,
+              authority: 'ROLE_USER',
+            },
+          }),
           this.getAllAnswers(),
           this.alterQuestions(this.loadedQuestionnaire),
           console.log(this.loadedQuestionnaire.question)
@@ -63,6 +77,9 @@ export class NewQuestionnaireComponent implements OnInit {
       answer: [],
       requiredAnswerId: null,
     };
+    for (let question of q.questionnaire.question) {
+      delete question['editing'];
+    }
     // this.newAnswer = { id: 20, name: 'test pitanje', question: null };
     // this.store.dispatch(new AnswerActions.AddAnswer(this.newAnswer));
     this.questionService.addQuestion(q).subscribe({

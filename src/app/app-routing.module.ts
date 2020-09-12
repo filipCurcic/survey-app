@@ -10,7 +10,7 @@ const routes: Routes = [
     path: 'surveys',
     loadChildren: './modules/survey/survey.module#SurveyModule',
     canActivate: [RoleGuard],
-    data: { expectedRoles: ['USER'] },
+    data: { expectedRoles: ['ROLE_USER'] },
   },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },

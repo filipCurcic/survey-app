@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { QuestionnaireService } from './../../../../core/services/questionnaire/questionnaire.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from 'src/app/core/auth/authorization/auth.service';
 
 @Component({
   selector: 'app-overview',
@@ -10,7 +11,8 @@ import { ToastrService } from 'ngx-toastr';
 export class OverviewComponent implements OnInit {
   constructor(
     private questionnaireService: QuestionnaireService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private authService: AuthenticationService
   ) {}
   questionnaires = [];
   deleting = false;
@@ -23,7 +25,7 @@ export class OverviewComponent implements OnInit {
 
   loadQuestionnaires(): void {
     this.questionnaireService
-      .getQuestionnaires()
+      .getQuestionnaires(this.authService.getCurrentUser().id)
       .subscribe((data) => (this.questionnaires = data));
   }
 

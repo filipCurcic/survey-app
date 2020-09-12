@@ -11,8 +11,10 @@ export class QuestionnaireService {
   constructor(private httpClient: HttpClient) {}
 
   // tslint:disable-next-line:typedef
-  getQuestionnaires() {
-    return this.httpClient.get<Questionnaire[]>(this.questionnaireUrl + `all`);
+  getQuestionnaires(userId: number) {
+    return this.httpClient.get<Questionnaire[]>(
+      this.questionnaireUrl + `by/${userId}`
+    );
   }
   // tslint:disable-next-line:typedef
   getQuestionnaire(questionnaireId: number) {
