@@ -33,6 +33,10 @@ export class AnswerService {
     return this.httpClient.get<Answer>(this.answerUrl + `a/` + `${questionId}`);
   }
 
+  getAnswersByUser(userId: number) {
+    return this.httpClient.get<Answer[]>(this.answerUrl + `user/${userId}`);
+  }
+
   // tslint:disable-next-line:typedef
   addAnswerFromTemplate(answer: Answer) {
     return this.httpClient.post<Answer>(

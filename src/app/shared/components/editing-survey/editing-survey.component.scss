@@ -11,12 +11,30 @@
     border: none;
   }
   .close-button {
-    float: right;
+    position: absolute;
+    right: 230px;
+    bottom: 520px;
+  }
+  .question-name-editing-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5em;
+    align-content: center;
+    input {
+      width: 60%;
+      height: 60px;
+    }
+    button {
+      width: 30%;
+      height: 60px;
+    }
   }
   .answer-container {
     padding-left: 5em;
     margin-top: 1em;
-    input {
+    border-bottom: 1px solid gray;
+    width: 80% input {
       margin-top: 1em;
       margin-right: 3em;
       width: 55%;
@@ -46,6 +64,7 @@
     margin: 2em 0;
     display: flex;
     justify-content: space-between;
+
     button {
       width: 100px;
     }
@@ -62,6 +81,14 @@
     select {
       width: 50%;
     }
+  }
+
+  .buttons-container {
+    display: flex;
+    width: 100%;
+    margin-top: 2em;
+    margin-bottom: 1em;
+    justify-content: space-between;
   }
 }
 

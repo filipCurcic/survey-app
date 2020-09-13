@@ -6,7 +6,7 @@ import { DisplayedSurveyComponent } from './components/displayed-survey/displaye
 import { DisplayedTemplateComponent } from './components/displayed-template/displayed-template.component';
 import { EditingSurveyComponent } from './components/editing-survey/editing-survey.component';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     CreateSurveyComponent,
@@ -21,6 +21,6 @@ import { FormsModule } from '@angular/forms';
     DisplayedTemplateComponent,
     EditingSurveyComponent,
   ],
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
 })
 export class SharedModule {}

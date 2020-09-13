@@ -82,6 +82,7 @@ export class NewQuestionnaireComponent implements OnInit {
     }
     // this.newAnswer = { id: 20, name: 'test pitanje', question: null };
     // this.store.dispatch(new AnswerActions.AddAnswer(this.newAnswer));
+    this.beforeQuestionAdd();
     this.questionService.addQuestion(q).subscribe({
       complete: () => {
         this.loadQuestionnaire();
@@ -91,7 +92,16 @@ export class NewQuestionnaireComponent implements OnInit {
 
   answerAdded(question: Question): void {
     this.loadQuestionnaire();
-    this.onChangeEditing(question);
+    // this.onChangeEditing(question);
+  }
+
+  beforeQuestionAdd() {
+    for (let q of this.loadedQuestionnaire.question) {
+      delete q['editing'];
+      for (let a of q.answer) {
+        delete a['editing'];
+      }
+    }
   }
 
   getAllAnswers() {
@@ -129,7 +139,7 @@ export class NewQuestionnaireComponent implements OnInit {
     let updatedQuestionnaire = new Questionnaire(
       this.loadedQuestionnaire.id,
       name,
-      this.loadedQuestionnaire.created,
+      new Date(),
       this.loadedQuestionnaire.user,
       [],
       false

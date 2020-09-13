@@ -1,11 +1,17 @@
 <div class="main-container">
   <div class="component-container">
     <span class="close-button" (click)="closeEditing()">X</span>
-    <input
-      type="text"
-      value="{{ question.name }}"
-      style="margin-top: 1em; height: 80px"
-    />
+
+    <div class="question-name-editing-container">
+      <input type="text" value="{{ question.name }}" #questionName />
+      <button
+        class="btn btn-primary"
+        (click)="onSaveQuestionName(questionName.value)"
+      >
+        Update
+      </button>
+    </div>
+
     <div class="answer-container">
       <ng-container *ngFor="let answer of question.answer; let i = index">
         <ng-container>
@@ -96,16 +102,18 @@
           {{ answer.name }}
         </option>
       </select>
-      <button (click)="addRequiredAnswer()">Submit</button>
+      <button class="btn btn-primary" (click)="addRequiredAnswer()">
+        Submit
+      </button>
       <br />
     </div>
-    <button (click)="saveChanges()">Save</button>
 
-    <br />
+    <!-- <br />
     <button (click)="test()">test function</button>
-    <br />
-    <button (click)="deleteQuestion()">delete question</button>
-    <br />
-    <button (click)="closeEditing()">Done</button>
+    <br /> -->
+    <div class="buttons-container">
+      <button class="btn btn-primary" (click)="closeEditing()">Done</button>
+      <button class="btn btn-danger" (click)="deleteQuestion()">Delete</button>
+    </div>
   </div>
 </div>

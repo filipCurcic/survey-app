@@ -13,6 +13,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   onLogin() {
-    this.authService.login('mejl', 'sifra');
+    this.authService.login('email', 's');
   }
 }

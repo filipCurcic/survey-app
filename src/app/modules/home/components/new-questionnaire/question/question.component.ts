@@ -55,6 +55,8 @@ export class QuestionComponent implements OnInit {
     // const newAnswer = { id: 1, name: 'pitanje', question: null };
     // this.store.dispatch(new AnswerActions.AddAnswer(newAnswer));
     const sampleAnswer = new Answer(null, 'test odgovor', this.question, null);
+    delete sampleAnswer.question['editing'];
+    console.log(sampleAnswer);
     this.answerService.addAnswer(sampleAnswer).subscribe({
       complete: () => {
         this.onChange();
