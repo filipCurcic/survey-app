@@ -12,7 +12,19 @@
         type="text"
         placeholder="Search forms..."
         [(ngModel)]="searchText"
+        (change)="searchFilter()"
       />
+      <select
+        [(ngModel)]="sortingOption"
+        (change)="changeSortingOption($event.target.value)"
+        id="answers"
+        name="answers"
+        value="Select Required Answer"
+      >
+        <option value="created">By Date</option>
+        <option value="name">By Name</option>
+        <option value="id">By ID</option>
+      </select>
       <!-- <div class="input-group">
         <input placeholder="Search" />
         <span class="input-group-append">

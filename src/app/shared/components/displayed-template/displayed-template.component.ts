@@ -33,12 +33,12 @@ export class DisplayedTemplateComponent implements OnInit {
   addQuestionnaireFromTemplate(templateQ: Questionnaire): void {
     templateQ.user = {
       id: this.authService.getCurrentUser().id,
-      firstName: '',
-      lastName: '',
       email: this.authService.getCurrentUser().email,
-      password: '',
-      permission: null,
-      userName: '',
+      password: this.authService.getCurrentUser().password,
+      permission: {
+        id: 1,
+        authority: 'ROLE_USER',
+      },
     };
     console.log(templateQ.user);
     this.questionnaireService

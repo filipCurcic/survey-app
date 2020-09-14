@@ -35,10 +35,7 @@ export class DisplayedSurveyComponent implements OnInit {
     questionnaire.user = {
       id: this.authService.getCurrentUser().id,
       email: this.authService.getCurrentUser().email,
-      userName: this.authService.getCurrentUser().username,
       password: this.authService.getCurrentUser().password,
-      firstName: '',
-      lastName: '',
       permission: {
         id: 1,
         authority: 'ROLE_USER',
@@ -96,9 +93,6 @@ export class DisplayedSurveyComponent implements OnInit {
   saveAsTemplate(questionnaire: Questionnaire): void {
     questionnaire.user = {
       id: 0,
-      firstName: '',
-      lastName: '',
-      userName: '',
       password: '',
       email: '',
       permission: null,

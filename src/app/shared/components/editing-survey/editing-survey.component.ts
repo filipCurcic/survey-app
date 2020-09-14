@@ -91,12 +91,8 @@ export class EditingSurveyComponent implements OnInit {
     console.log(this.question.questionnaire);
     this.beforeAddAnswer(this.question);
     this.question.requiredAnswerId = this.selectedAnswer;
-    this.question.questionnaire.created = new Date();
     this.question.questionnaire.user = {
       id: this.authService.getCurrentUser().id,
-      firstName: '',
-      lastName: '',
-      userName: this.authService.getCurrentUser().username,
       password: this.authService.getCurrentUser().password,
       email: this.authService.getCurrentUser().email,
       permission: {
@@ -147,6 +143,7 @@ export class EditingSurveyComponent implements OnInit {
   saveChanges() {}
 
   onSaveQuestionName(newName: string) {
+    console.log(this.question.questionnaire);
     this.beforeAddAnswer(this.question);
     const updatedQuestion: Question = {
       id: this.question.id,
@@ -154,6 +151,16 @@ export class EditingSurveyComponent implements OnInit {
       questionnaire: this.question.questionnaire,
       answer: this.question.answer,
       requiredAnswerId: this.question.requiredAnswerId,
+    };
+    updatedQuestion.questionnaire.created = this.question.questionnaire.created;
+    updatedQuestion.questionnaire.user = {
+      id: this.authService.getCurrentUser().id,
+      email: this.authService.getCurrentUser().email,
+      password: this.authService.getCurrentUser().password,
+      permission: {
+        id: 1,
+        authority: 'ROLE_USER',
+      },
     };
     this.questionService
       .updateQuestion(this.question.id, updatedQuestion)

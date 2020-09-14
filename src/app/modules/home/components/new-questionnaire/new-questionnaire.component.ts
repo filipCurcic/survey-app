@@ -52,9 +52,6 @@ export class NewQuestionnaireComponent implements OnInit {
           (this.loadedQuestionnaire = data),
           (this.loadedQuestionnaire.user = {
             id: this.authService.getCurrentUser().id,
-            firstName: '',
-            lastName: '',
-            userName: '',
             password: '',
             email: this.authService.getCurrentUser().email,
             permission: {
@@ -144,6 +141,7 @@ export class NewQuestionnaireComponent implements OnInit {
       [],
       false
     );
+    updatedQuestionnaire.user.password = this.authService.getCurrentUser().password;
     this.questionnaireService
       .updateQuestionnaire(updatedQuestionnaire, this.loadedQuestionnaire.id)
       .subscribe({

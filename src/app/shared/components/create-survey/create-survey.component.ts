@@ -27,11 +27,11 @@ export class CreateSurveyComponent implements OnInit {
       {
         id: this.authService.getCurrentUser().id,
         email: this.authService.getCurrentUser().email,
-        firstName: '',
-        lastName: '',
-        userName: '',
-        password: '',
-        permission: null,
+        password: this.authService.getCurrentUser().password,
+        permission: {
+          id: 1,
+          authority: 'ROLE_USER',
+        },
       },
       [],
       false

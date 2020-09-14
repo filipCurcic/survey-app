@@ -44,11 +44,23 @@
       background-color: darken($color: #dcedc1, $amount: 5);
     }
     .edit-questionnaire-name {
+      display: flex;
+      align-items: center;
+      align-content: center;
+      justify-content: space-between;
       input {
-        width: 100%;
-        padding: 12px;
+        width: 70%;
+        padding: 20px;
         height: 50px;
         margin: 3em 0;
+      }
+      input,
+      input::-webkit-input-placeholder {
+        font-size: 40px;
+      }
+      button {
+        min-width: 175px;
+        height: 55px;
       }
     }
   }

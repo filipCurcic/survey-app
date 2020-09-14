@@ -79,7 +79,6 @@ export class AuthenticationService {
           email: parsedToken.uniq,
           id: parsedToken.sub,
           password: parsedToken.password,
-          username: parsedToken.username,
         };
       }
       return null;
