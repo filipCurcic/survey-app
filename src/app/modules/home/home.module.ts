@@ -11,6 +11,8 @@ import { TemplatesComponent } from './components/templates/templates.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterPipe } from './../../shared/pipes/filter/filter.pipe';
 import { AlertComponent } from './../../shared/components/alert/alert.component';
+import { PublicTemplatesComponent } from './components/templates/public-templates/public-templates.component';
+import { PrivateTemplatesComponent } from './components/templates/private-templates/private-templates.component';
 
 @NgModule({
   imports: [
@@ -29,6 +31,8 @@ import { AlertComponent } from './../../shared/components/alert/alert.component'
     TemplatesComponent,
     FilterPipe,
     AlertComponent,
+    PublicTemplatesComponent,
+    PrivateTemplatesComponent,
   ],
 })
 export class HomeModule {}

@@ -60,8 +60,7 @@ export class NewQuestionnaireComponent implements OnInit {
             },
           }),
           this.getAllAnswers(),
-          this.alterQuestions(this.loadedQuestionnaire),
-          console.log(this.loadedQuestionnaire.question)
+          this.alterQuestions(this.loadedQuestionnaire)
         )
       );
   }
@@ -87,9 +86,10 @@ export class NewQuestionnaireComponent implements OnInit {
     });
   }
 
-  answerAdded(question: Question): void {
-    this.loadQuestionnaire();
-    // this.onChangeEditing(question);
+  onUpdate(eventValue: boolean) {
+    if (eventValue) {
+      this.loadQuestionnaire();
+    }
   }
 
   beforeQuestionAdd() {
@@ -107,7 +107,6 @@ export class NewQuestionnaireComponent implements OnInit {
         this.allAnswers.push(a);
       }
     }
-    console.log(this.allAnswers);
   }
 
   alterQuestions(sampleQuestionnaire: Questionnaire) {
@@ -139,17 +138,22 @@ export class NewQuestionnaireComponent implements OnInit {
       new Date(),
       this.loadedQuestionnaire.user,
       [],
+      false,
       false
     );
     updatedQuestionnaire.user.password = this.authService.getCurrentUser().password;
-    this.questionnaireService
-      .updateQuestionnaire(updatedQuestionnaire, this.loadedQuestionnaire.id)
-      .subscribe({
-        complete: () => (
-          this.loadQuestionnaire(),
-          (this.questionnaireNameEdit = false),
-          this.toastr.success('Action completed!', 'Success')
-        ),
-      });
+    if (name === '') {
+      this.toastr.warning('The field can not be  empty');
+    } else {
+      this.questionnaireService
+        .updateQuestionnaire(updatedQuestionnaire, this.loadedQuestionnaire.id)
+        .subscribe({
+          complete: () => (
+            this.loadQuestionnaire(),
+            (this.questionnaireNameEdit = false),
+            this.toastr.success('Action completed!', 'Success')
+          ),
+        });
+    }
   }
 }

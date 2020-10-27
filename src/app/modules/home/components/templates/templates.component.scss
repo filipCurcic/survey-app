@@ -32,17 +32,19 @@
         width: 60em;
         background-color: #f4f4f4;
       }
-
+      span {
+        margin-left: 3em;
+        cursor: pointer;
+        transition: 0.2s;
+        color: rgb(87, 87, 87);
+      }
+      span:hover {
+        color: black;
+      }
       h1 {
         font-size: 30px;
         margin-bottom: 0;
       }
-    }
-    main {
-      grid-area: main;
-      display: grid;
-      column-gap: 3em;
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     }
   }
 }

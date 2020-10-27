@@ -6,6 +6,8 @@ import { OverviewComponent } from './components/overview/overview.component';
 import { NewQuestionnaireComponent } from './components/new-questionnaire/new-questionnaire.component';
 import { TemplatesComponent } from './components/templates/templates.component';
 import { RoleGuard } from 'src/app/core/auth/authorization/role-guard';
+import { PublicTemplatesComponent } from './components/templates/public-templates/public-templates.component';
+import { PrivateTemplatesComponent } from './components/templates/private-templates/private-templates.component';
 
 const homeRoutes: Routes = [
   {
@@ -30,6 +32,10 @@ const homeRoutes: Routes = [
         component: TemplatesComponent,
         canActivate: [RoleGuard],
         data: { expectedRoles: ['ROLE_USER'] },
+        children: [
+          { path: 'public', component: PublicTemplatesComponent },
+          { path: 'private', component: PrivateTemplatesComponent },
+        ],
       },
       { path: '**', redirectTo: '/home/welcome', pathMatch: 'full' },
     ],

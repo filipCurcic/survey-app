@@ -30,7 +30,15 @@ export class AnswerService {
 
   // tslint:disable-next-line:typedef
   getAnswersByQuestion(questionId: number) {
-    return this.httpClient.get<Answer>(this.answerUrl + `a/` + `${questionId}`);
+    return this.httpClient.get<Answer[]>(
+      this.answerUrl + `question/${questionId}`
+    );
+  }
+
+  getAnswersByQuestionnaire(questionId: number) {
+    return this.httpClient.get<Answer[]>(
+      this.answerUrl + `questionnaire/${questionId}`
+    );
   }
 
   getAnswersByUser(userId: number) {

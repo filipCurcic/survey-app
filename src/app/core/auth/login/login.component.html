@@ -6,7 +6,7 @@
     <h1 class="primary-font" id="login-header">
       <strong>Welcome</strong>
     </h1>
-    <input type="text" name="username" id="username" placeholder="Username" />
+    <input type="text" name="email" id="email" placeholder="Email" #email />
     <svg
       width="1.4em"
       height="1.6em"
@@ -22,7 +22,13 @@
       />
     </svg>
 
-    <input type="text" name="password" id="password" placeholder="Password" />
+    <input
+      type="password"
+      name="password"
+      id="password"
+      placeholder="Password"
+      #password
+    />
     <svg
       width="1.25em"
       height="1.25em"
@@ -40,7 +46,9 @@
         d="M4.5 4a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"
       />
     </svg>
-    <button (click)="onLogin()" id="login-button">Login</button>
+    <button (click)="onLogin(email.value, password.value)" id="login-button">
+      Login
+    </button>
     <p [routerLink]="['/register']">Don't have an account?</p>
   </div>
 </div>

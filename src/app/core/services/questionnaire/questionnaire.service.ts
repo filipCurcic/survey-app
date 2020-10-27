@@ -68,6 +68,12 @@ export class QuestionnaireService {
     );
   }
 
+  getPublicTemplates() {
+    return this.httpClient.get<Questionnaire[]>(
+      this.questionnaireUrl + `public_templates`
+    );
+  }
+
   // tslint:disable-next-line:typedef
   saveAsTemplate(questionnaire: Questionnaire) {
     return this.httpClient.post<Questionnaire>(

@@ -10,6 +10,7 @@
         Making surveys or questionnaires has never been simpler! <br />
         Create customized surveys and questionnaires with just a few clicks!
       </p>
+      <span [routerLink]="['/home/overview']" id="try-now">TRY IT NOW!</span>
     </main>
     <section class="surveys">
       <span class="divider"></span>
@@ -26,7 +27,6 @@
       <span *ngIf="!isLoggedIn" [routerLink]="['/login']">LOGIN </span>
       <span *ngIf="!isLoggedIn" [routerLink]="['/register']">REGISTER</span>
       <span *ngIf="isLoggedIn" (click)="logout()"> LOGOUT</span>
-      <span (click)="test()"> test</span>
     </header>
     <div class="side-image"></div>
   </div>

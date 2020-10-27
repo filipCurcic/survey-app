@@ -60,15 +60,25 @@ p {
     #form-container {
       width: 100%;
       height: 250px;
-      justify-content: space-between;
-      #left {
-        flex-direction: column;
-      }
+      justify-content: center;
       #right {
         flex-direction: column;
+        width: 100%;
       }
       #firstname-icon {
         right: 100px;
+      }
+      #username-icon {
+        position: absolute;
+        bottom: 340px;
+      }
+      #password-icon1 {
+        position: absolute;
+        bottom: 290px;
+      }
+      #password-icon2 {
+        position: absolute;
+        bottom: 235px;
       }
     }
 
@@ -83,9 +93,9 @@ p {
       color: #212121;
       background-color: #dcedc1;
       border-radius: 20px;
-      width: 65%;
+      width: 100%;
       height: 8.5%;
-      margin-top: 2%;
+      margin-top: 5%;
       font-size: 22.5px;
       transition: 0.3s;
     }
@@ -105,8 +115,9 @@ p {
     background-color: #a8e6cf;
     border-bottom: 1px solid #212121;
     padding: 10px;
-    padding-left: 27.5px;
-    width: 240px;
+    padding-left: 31px;
+    width: 400px;
+    margin-bottom: 10px;
   }
   input:focus {
     outline: none;

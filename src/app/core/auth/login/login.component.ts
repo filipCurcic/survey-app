@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onLogin() {
-    this.authService.login('123', '123');
+  onLogin(email: string, password: string) {
+    this.authService.login(email, password);
   }
 }

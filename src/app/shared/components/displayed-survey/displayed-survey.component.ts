@@ -5,6 +5,7 @@ import { AuthenticationService } from 'src/app/core/auth/authorization/auth.serv
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Question } from '../../models/question';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-displayed-survey',
   templateUrl: './displayed-survey.component.html',
@@ -16,19 +17,19 @@ export class DisplayedSurveyComponent implements OnInit {
   @Output()
   questionnaireDeleted: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  @Output()
+  deleteRequest: EventEmitter<{}> = new EventEmitter<{}>();
+
   constructor(
     private questionnaireService: QuestionnaireService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {}
 
   deleteQuestionnaire(id: number): void {
-    this.questionnaireService.deleteQuestionnaire(id).subscribe({
-      complete: () => {
-        this.buttonClicked();
-      },
-    });
+    this.deleteRequest.emit(this.questionnaire);
   }
 
   copyQuestionnaire(questionnaire: Questionnaire): void {
@@ -92,16 +93,21 @@ export class DisplayedSurveyComponent implements OnInit {
 
   saveAsTemplate(questionnaire: Questionnaire): void {
     questionnaire.user = {
-      id: 0,
-      password: '',
-      email: '',
-      permission: null,
+      id: this.authService.getCurrentUser().id,
+      email: this.authService.getCurrentUser().email,
+      password: this.authService.getCurrentUser().password,
+      permission: {
+        id: 1,
+        authority: 'ROLE_USER',
+      },
     };
+    this.questionnaire.template = true;
     console.log(questionnaire);
 
     this.questionnaireService.saveAsTemplate(questionnaire).subscribe({
       complete: () => {
-        this.buttonClicked();
+        this.buttonClicked(),
+          this.toastrService.success('Successfully saved as Template');
       },
     });
   }

@@ -1,0 +1,8 @@
+<main>
+  <ng-container *ngFor="let templateElement of templates">
+    <app-displayed-template
+      [template]="templateElement"
+      (templateDeleted)="updatedTemplates($event)"
+    ></app-displayed-template>
+  </ng-container>
+</main>

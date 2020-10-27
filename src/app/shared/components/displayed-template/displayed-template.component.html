@@ -1,6 +1,6 @@
 <div class="main-container">
   <div class="top first-color">
-    <div class="dropdown">
+    <div class="dropdown" *ngIf="router.url === '/home/templates/private'">
       <svg
         width="1em"
         height="1em"
@@ -18,11 +18,23 @@
       </svg>
       <div
         class="dropdown-menu"
-        style="min-width: 100px;"
+        style="min-width: 100px"
         aria-labelledby="dropdownMenuButton"
       >
         <a class="dropdown-item" (click)="deleteTemplate(template.id)"
           >Delete</a
+        >
+        <a
+          *ngIf="!template.publicTemplate"
+          class="dropdown-item"
+          (click)="makeTemplatePublic()"
+          >Make Public</a
+        >
+        <a
+          *ngIf="template.publicTemplate"
+          class="dropdown-item"
+          (click)="makeTemplatePrivate()"
+          >Make Private</a
         >
       </div>
     </div>

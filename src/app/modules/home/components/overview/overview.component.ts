@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { QuestionnaireService } from './../../../../core/services/questionnaire/questionnaire.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/core/auth/authorization/auth.service';
+import { Questionnaire } from 'src/app/shared/models/questionnaire';
 
 @Component({
   selector: 'app-overview',
@@ -21,7 +22,9 @@ export class OverviewComponent implements OnInit {
 
   backUpQuestionnaires = [];
 
-  error = 'asasd';
+  error = 'Are you sure you want to delete this questionnaire?';
+  deletingQuetionnaire: Questionnaire;
+
   ngOnInit(): void {
     this.loadQuestionnaires();
   }
@@ -40,8 +43,12 @@ export class OverviewComponent implements OnInit {
     if (boolValue) {
       this.loadQuestionnaires();
       this.toastr.success('Action completed!', 'Success');
-      this.deleting = true;
     }
+  }
+
+  deletePopUp(questionnaire: any): void {
+    this.deleting = true;
+    this.deletingQuetionnaire = questionnaire;
   }
 
   searchFilter() {

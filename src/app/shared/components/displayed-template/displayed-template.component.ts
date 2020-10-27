@@ -3,6 +3,7 @@ import { Questionnaire } from '../../models/questionnaire';
 import { QuestionnaireService } from 'src/app/core/services/questionnaire/questionnaire.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/auth/authorization/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-displayed-template',
@@ -12,8 +13,9 @@ import { AuthenticationService } from 'src/app/core/auth/authorization/auth.serv
 export class DisplayedTemplateComponent implements OnInit {
   constructor(
     private questionnaireService: QuestionnaireService,
-    private router: Router,
-    private authService: AuthenticationService
+    public router: Router,
+    private authService: AuthenticationService,
+    private toastr: ToastrService
   ) {}
   @Input() template: Questionnaire;
 
@@ -25,7 +27,7 @@ export class DisplayedTemplateComponent implements OnInit {
   deleteTemplate(id: number): void {
     this.questionnaireService.deleteQuestionnaire(id).subscribe({
       complete: () => {
-        this.onChange();
+        this.onChange(), this.toastr.show('Successfull deleted');
       },
     });
   }
@@ -49,6 +51,54 @@ export class DisplayedTemplateComponent implements OnInit {
           this.changeRoute();
         },
       });
+  }
+
+  makeTemplatePublic() {
+    this.template.user = {
+      id: this.authService.getCurrentUser().id,
+      email: this.authService.getCurrentUser().email,
+      password: this.authService.getCurrentUser().password,
+      permission: {
+        id: 1,
+        authority: 'ROLE_USER',
+      },
+    };
+    this.template.publicTemplate = true;
+    this.questionnaireService
+      .updateQuestionnaire(this.template, this.template.id)
+      .subscribe({
+        complete: () => (
+          this.onChange(), this.toastr.show('Successfully made public')
+        ),
+      });
+  }
+
+  makeTemplatePrivate() {
+    this.template.user = {
+      id: this.authService.getCurrentUser().id,
+      email: this.authService.getCurrentUser().email,
+      password: this.authService.getCurrentUser().password,
+      permission: {
+        id: 1,
+        authority: 'ROLE_USER',
+      },
+    };
+    this.template.publicTemplate = false;
+    this.questionnaireService
+      .updateQuestionnaire(this.template, this.template.id)
+      .subscribe({
+        complete: () => (
+          this.onChange(), this.toastr.show('Successfully made private')
+        ),
+      });
+  }
+
+  getUserId(): number {
+    return this.authService.getCurrentUser().id;
+  }
+
+  test() {
+    console.log(this.template);
   }
 
   onChange(): void {

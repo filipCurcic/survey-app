@@ -35,6 +35,17 @@ body {
         width: 40em;
         font-size: 20px;
       }
+      span#try-now {
+        font-size: 35px;
+        text-decoration: underline;
+        cursor: pointer;
+        color: rgb(65, 65, 65);
+        transition: 0.1s;
+      }
+      span#try-now:hover {
+        color: black;
+        font-size: 36.5px;
+      }
     }
     section.surveys,
     section.footer,

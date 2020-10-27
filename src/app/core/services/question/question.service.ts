@@ -38,7 +38,6 @@ export class QuestionService {
 
   // tslint:disable-next-line:typedef
   updateQuestion(questionId: number, question: Question) {
-    console.log(question);
     return this.httpClient.put<Question>(
       this.questionUrl + `${questionId}`,
       question

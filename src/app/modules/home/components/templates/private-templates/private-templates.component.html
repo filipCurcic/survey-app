@@ -1,0 +1,9 @@
+<main>
+  <ng-container *ngFor="let templateElement of templates">
+    <app-displayed-template
+      *ngIf="templateElement.user.id === getCurrentUserId()"
+      [template]="templateElement"
+      (templateDeleted)="updatedTemplates($event)"
+    ></app-displayed-template>
+  </ng-container>
+</main>

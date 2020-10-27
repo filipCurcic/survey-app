@@ -16,6 +16,7 @@ export class Questionnaire {
     public created: Date,
     public user: User,
     public question: Question[],
-    public template: boolean
+    public template: boolean,
+    public publicTemplate: boolean
   ) {}
 }

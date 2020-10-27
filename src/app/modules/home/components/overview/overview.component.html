@@ -1,6 +1,7 @@
 <div class="main-container primary-font main-container-sizing">
   <app-alert
     [message]="error"
+    [questionnaire]="deletingQuetionnaire"
     *ngIf="deleting"
     (closeAlert)="onClose()"
   ></app-alert>
@@ -38,11 +39,14 @@
       <app-create-survey
         (questionnaireAdded)="updatedQuestionnaires($event)"
       ></app-create-survey>
-      <app-displayed-survey
-        *ngFor="let questionnaireEl of questionnaires"
-        [questionnaire]="questionnaireEl"
-        (questionnaireDeleted)="updatedQuestionnaires($event)"
-      ></app-displayed-survey>
+      <ng-container *ngFor="let questionnaireEl of questionnaires">
+        <app-displayed-survey
+          *ngIf="!questionnaireEl.template"
+          [questionnaire]="questionnaireEl"
+          (questionnaireDeleted)="updatedQuestionnaires($event)"
+          (deleteRequest)="deletePopUp($event)"
+        ></app-displayed-survey>
+      </ng-container>
     </main>
   </div>
 </div>

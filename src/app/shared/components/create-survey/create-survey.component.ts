@@ -34,6 +34,7 @@ export class CreateSurveyComponent implements OnInit {
         },
       },
       [],
+      false,
       false
     );
     this.questionnaireService.addQuestionnaire(sampleQuestionnaire).subscribe({

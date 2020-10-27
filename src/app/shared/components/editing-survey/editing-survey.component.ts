@@ -1,4 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { Question } from '../../models/question';
 import { AnswerService } from 'src/app/core/services/answer/answer.service';
 import { QuestionService } from 'src/app/core/services/question/question.service';
@@ -9,18 +18,22 @@ import { AuthenticationService } from 'src/app/core/auth/authorization/auth.serv
   selector: 'app-editing-survey',
   templateUrl: './editing-survey.component.html',
   styleUrls: ['./editing-survey.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditingSurveyComponent implements OnInit {
+export class EditingSurveyComponent implements OnInit, OnChanges {
   @Input() question: Question;
   @Input() answers: Answer[];
   newAnswer: string;
   allAnswers: Answer[];
 
   @Output()
-  answerAdded: EventEmitter<Question> = new EventEmitter<Question>();
-
-  @Output()
   closedEditing: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  @Output() change: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.ngOnInit();
+  }
 
   constructor(
     private answerService: AnswerService,
@@ -30,25 +43,31 @@ export class EditingSurveyComponent implements OnInit {
   ) {}
   selectedAnswer: number;
   ngOnInit(): void {
-    this.alterAnswers(this.question);
     this.getAllAnswers();
+    this.alterAnswers(this.question);
+    console.log(this.allAnswers);
   }
 
   addAnswer(answerName: string): void {
-    this.beforeAddAnswer(this.question);
-    // const newAnswer = { id: 1, name: 'pitanje', question: null };
-    // this.store.dispatch(new AnswerActions.AddAnswer(newAnswer));
-    const sampleAnswer = new Answer(null, answerName, this.question, null);
+    if (answerName == '') {
+      this.toastr.warning('The field can not be empty');
+    } else {
+      this.beforeAddAnswer(this.question);
+      const sampleAnswer = new Answer(null, answerName, this.question, null);
 
-    this.answerService.addAnswer(sampleAnswer).subscribe({
-      complete: () => {
-        this.onChange(), this.alterAnswers(this.question);
-      },
-    });
+      this.answerService.addAnswer(sampleAnswer).subscribe({
+        complete: () => {
+          this.onChange(),
+            this.alterAnswers(this.question),
+            this.toastr.success('Action completed succesfully'),
+            location.reload();
+        },
+      });
+    }
   }
 
   onChange(): void {
-    this.answerAdded.emit(this.question);
+    this.change.next(true);
   }
 
   alterAnswers(question: Question) {
@@ -73,17 +92,13 @@ export class EditingSurveyComponent implements OnInit {
   }
 
   getAllAnswers() {
-    // let answerIds = [];
-    // if (this.question.answer.length > 0) {
-    //   for (let a of this.question.answer) {
-    //     answerIds.push(a.id);
-    //   }
-    // }
     this.answerService
-      .getAnswersByUser(this.authService.getCurrentUser().id)
+      .getAnswersByQuestionnaire(this.question.questionnaire.id)
       .subscribe(
-        (data) => (this.allAnswers = data)
-        // (this.allAnswers = data.filter((q) => !answerIds.includes(q.id)))
+        (data) =>
+          (this.allAnswers = data.filter(
+            (a) => a.question.id != this.question.id
+          ))
       );
   }
 
@@ -115,13 +130,17 @@ export class EditingSurveyComponent implements OnInit {
 
   deleteAnswer(answer: Answer) {
     this.answerService.deleteAnswer(answer.id).subscribe({
-      complete: () => this.onChange(),
+      complete: () => (this.onChange(), location.reload()),
     });
   }
 
   deleteQuestion() {
     this.questionService.deleteQuestion(this.question.id).subscribe({
-      complete: () => this.onChange(),
+      complete: () => (
+        this.onChange(),
+        this.toastr.success('Action completed succesfully'),
+        location.reload()
+      ),
     });
   }
 
@@ -133,39 +152,52 @@ export class EditingSurveyComponent implements OnInit {
     }
   }
 
-  updateAnswer(name: string, answer: Answer) {
-    let updatedAnswer = new Answer(answer.id, name, answer.question, '');
-    this.answerService.updateAnswer(answer.id, updatedAnswer).subscribe({
-      complete: () => this.onChange(),
-    });
+  onCancelEdit(answer: Answer) {
+    if (answer['editing']) {
+      answer['editing'] = false;
+    }
   }
 
-  saveChanges() {}
+  updateAnswer(name: string, answer: Answer) {
+    let updatedAnswer = new Answer(answer.id, name, answer.question, '');
+    if (name === '') {
+      this.toastr.warning('The field can not be empty');
+    } else {
+      this.answerService.updateAnswer(answer.id, updatedAnswer).subscribe({
+        complete: () => location.reload(),
+      });
+    }
+  }
 
   onSaveQuestionName(newName: string) {
-    console.log(this.question.questionnaire);
-    this.beforeAddAnswer(this.question);
-    const updatedQuestion: Question = {
-      id: this.question.id,
-      name: newName,
-      questionnaire: this.question.questionnaire,
-      answer: this.question.answer,
-      requiredAnswerId: this.question.requiredAnswerId,
-    };
-    updatedQuestion.questionnaire.created = this.question.questionnaire.created;
-    updatedQuestion.questionnaire.user = {
-      id: this.authService.getCurrentUser().id,
-      email: this.authService.getCurrentUser().email,
-      password: this.authService.getCurrentUser().password,
-      permission: {
-        id: 1,
-        authority: 'ROLE_USER',
-      },
-    };
-    this.questionService
-      .updateQuestion(this.question.id, updatedQuestion)
-      .subscribe({
-        complete: () => this.onChange(),
-      });
+    if (newName === '') {
+      this.toastr.warning('The field can not be empty');
+    } else {
+      this.beforeAddAnswer(this.question);
+      const updatedQuestion: Question = {
+        id: this.question.id,
+        name: newName,
+        questionnaire: this.question.questionnaire,
+        answer: this.question.answer,
+        requiredAnswerId: this.question.requiredAnswerId,
+      };
+      updatedQuestion.questionnaire.user = {
+        id: this.authService.getCurrentUser().id,
+        email: this.authService.getCurrentUser().email,
+        password: this.authService.getCurrentUser().password,
+        permission: {
+          id: 1,
+          authority: 'ROLE_USER',
+        },
+      };
+      this.questionService
+        .updateQuestion(this.question.id, updatedQuestion)
+        .subscribe({
+          complete: () => (
+            this.toastr.success('Action completed succesfully'),
+            location.reload()
+          ),
+        });
+    }
   }
 }

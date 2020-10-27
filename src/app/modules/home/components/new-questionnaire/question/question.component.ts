@@ -85,4 +85,22 @@ export class QuestionComponent implements OnInit {
         complete: () => this.onChange(),
       });
   }
+
+  collapseContent(q) {
+    if (!q.collapsed) {
+      q.collapsed = true;
+    } else if (q.collapsed) {
+      q.collapsed = false;
+    } else {
+      q.collapsed = null;
+    }
+  }
+
+  rotateIcon(q) {
+    const classes = {
+      rotated: q.collapsed,
+      rotatedback: !q.collapsed,
+    };
+    return classes;
+  }
 }

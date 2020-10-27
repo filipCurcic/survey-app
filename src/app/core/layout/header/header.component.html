@@ -2,6 +2,32 @@
   <h1 class="primary-text-color secondary-font" [routerLink]="['/home']">
     Survey App
   </h1>
+  <div class="dropdown" *ngIf="isLoggedIn()">
+    <svg
+      width="3.5em"
+      height="3.5em"
+      viewBox="0 0 16 16"
+      class="bi bi-person-fill dropdown-toggle"
+      style="cursor: pointer"
+      data-toggle="dropdown"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+      />
+    </svg>
+    <div
+      class="dropdown-menu"
+      style="min-width: 100px"
+      aria-labelledby="dropdownMenuButton"
+    >
+      <a class="dropdown-item" href="">Home</a>
+      <a class="dropdown-item" (click)="onLogOut()">Log out</a>
+    </div>
+  </div>
+
   <!-- <div class="dropdown">
     <svg
       id="profile-icon"
